@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeshCore &rarr; Meshtastic Beacon</title>
+<meta name="description" content="Firmware add-on that makes a MeshCore repeater periodically announce itself on a Meshtastic network. Compiled images and documentation.">
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
+    --fg:#e6edf3; --mut:#9aa7b4; --acc:#4ea1ff; --ok:#3fb950; --warn:#d29922; --warnbg:#241c08;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+  a{color:var(--acc);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  header{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  h1{font-size:2.1rem;margin:0 0 6px;letter-spacing:-.02em}
+  .tag{color:var(--mut);font-size:1.1rem;margin:0}
+  .pills{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .pill{background:var(--panel2);border:1px solid var(--line);color:var(--mut);
+    border-radius:999px;padding:3px 12px;font-size:.82rem}
+  h2{font-size:1.35rem;margin:42px 0 14px;letter-spacing:-.01em}
+  h3{font-size:1.05rem;margin:26px 0 8px}
+  p{color:#cdd6df}
+  section{padding-top:6px}
+  .banner{margin:26px 0 0;background:var(--warnbg);border:1px solid #5a4410;
+    border-left:4px solid var(--warn);border-radius:8px;padding:14px 16px}
+  .banner b{color:var(--warn)}
+  code{font-family:var(--mono);font-size:.88em;background:var(--panel2);
+    border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+  pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;overflow:auto}
+  pre code{background:none;border:none;padding:0;font-size:.86rem;color:#d6dee7}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.93rem}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mut);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em}
+  tbody tr:hover{background:#12171e}
+  .dl{display:inline-block;background:var(--acc);color:#04121f;font-weight:600;
+    border-radius:6px;padding:5px 12px;font-size:.85rem;white-space:nowrap}
+  .dl:hover{text-decoration:none;filter:brightness(1.08)}
+  .sub{color:var(--mut);font-size:.8rem}
+  .hash{font-family:var(--mono);font-size:.72rem;color:#6f7d8c;word-break:break-all}
+  .cmd td:first-child{font-family:var(--mono);white-space:nowrap;color:#9fd0ff}
+  footer{margin:60px 0 40px;padding-top:18px;border-top:1px solid var(--line);
+    color:var(--mut);font-size:.85rem}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px}
+  @media(max-width:620px){.grid2{grid-template-columns:1fr}}
+  ul{color:#cdd6df}
+  .ok{color:var(--ok)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>MeshCore &rarr; Meshtastic Beacon</h1>
+  <p class="tag">A MeshCore repeater that periodically announces itself <em>on a Meshtastic network</em>.</p>
+  <div class="pills">
+    <span class="pill">11 builds &middot; 4 platforms</span>
+    <span class="pill">nRF52 &middot; RP2040 &middot; ESP32-S3 &middot; STM32WL</span>
+    <span class="pill">appears on the Meshtastic map</span>
+    <span class="pill">region + preset aware</span>
+    <span class="pill">CLI-configurable</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+<div class="banner" style="background:#0d1f12;border-color:#1b3b24;border-left-color:var(--ok)">
+  <b style="color:var(--ok)">&#9989; Verified on-air.</b>
+  The Meshtastic packet format has been confirmed against a live Meshtastic node —
+  beacons decode, and the repeater shows up as a <b>named node and map pin</b> on
+  Meshtastic. Please still mind the <a href="#etiquette">etiquette</a>: you're
+  adding airtime to a shared public channel, and on some regions transmitting
+  outside your band/power is illegal. Flashing is reversible.
+</div>
+
+<section>
+<h2>What it is</h2>
+<p>
+  A native MeshCore advert is invisible to Meshtastic: the two use different LoRa
+  sync words and incompatible framing, so a Meshtastic node hears the RF energy
+  and drops it. This add-on makes a MeshCore repeater briefly <em>speak
+  Meshtastic</em> — it retunes to the Meshtastic channel and emits real Meshtastic
+  packets, then retunes back. Each beacon sends three packets in one hop:
+</p>
+<ul>
+  <li><b>NodeInfo</b> — the repeater appears as a <b>named node</b> in Meshtastic
+      apps, named <code>MC &lt;repeater name&gt;</code>.</li>
+  <li><b>Position</b> — a <b>pin on the Meshtastic map</b>, using the repeater's
+      configured location (skipped if unset).</li>
+  <li><b>Text</b> — the announcement line, e.g. <code>MeshCore repeater in range</code>.</li>
+</ul>
+<p>
+  It is still a <b>one-way beacon</b> — it doesn't route Meshtastic traffic.
+  Because LoRa is single-channel, the repeater is briefly off the MeshCore channel
+  during each beacon, so beacons are infrequent (default every 5&nbsp;minutes) and
+  only fire when the mesh is idle.
+</p>
+</section>
+
+<section>
+<h2>Quick start</h2>
+<ol>
+  <li>Download the image for your board below and flash it (see per-platform notes).</li>
+  <li>Connect to the repeater's serial console (115200 baud) or an admin remote-CLI session.</li>
+  <li>Run <code>mtbeacon on</code> to enable, then <code>mtbeacon send</code> to fire one immediately.</li>
+  <li>Confirm a Meshtastic device on <b>US LongFast</b> shows the text.</li>
+</ol>
+<p class="sub">On boards with a screen, the boot splash reads
+<code>&lt; Repeater +Beacon &gt;</code> (instead of <code>&lt; Repeater &gt;</code>)
+so you can tell at a glance you're running this variant. The home screen then
+shows a live status line — <code>Beacon ON 5m</code> (green) or
+<code>Beacon off</code> (red) — that updates as you change settings.</p>
+</section>
+
+<section>
+<h2>Downloads</h2>
+<p class="sub">Repeater firmware with the beacon built in (<code>-D WITH_MT_BEACON</code>).
+Built from MeshCore <code>e8d3c53</code>. Verify downloads against
+<a href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/SHA256SUMS">SHA256SUMS</a>.</p>
+<table>
+  <thead><tr><th>Board</th><th>MCU + radio</th><th>Flash via</th><th>Image</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Heltec T114 <span class="sub">(with display)</span></td><td>nRF52840 + SX1262</td><td>nRF52 DFU (.zip)</td>
+      <td><a class="dl" href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/meshcore-mtbeacon-heltec-t114-display.zip">.zip · 463 KB</a></td>
+    </tr>
+    <tr>
+      <td>Heltec T114 <span class="sub">(no display)</span></td><td>nRF52840 + SX1262</td><td>nRF52 DFU (.zip)</td>
+      <td><a class="dl" href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/meshcore-mtbeacon-heltec-t114-nodisplay.zip">.zip · 429 KB</a></td>
+    </tr>
+    <tr>
+      <td>RAK4631 (WisBlock)</td><td>nRF52840 + SX1262</td><td>nRF52 DFU (.zip)</td>
+      <td><a class="dl" href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/meshcore-mtbeacon-rak4631.zip">.zip · 505 KB</a></td>
+    </tr>
+    <tr>
+      <td>RAK3401</td><td>nRF52840 + SX1262</td><td>nRF52 DFU (.zip)</td>
+      <td><a class="dl" href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/meshcore-mtbeacon-rak3401.zip">.zip · 444 KB</a></td>
+    </tr>
+    <tr>
+      <td>RAK WisMesh Tag</td><td>nRF52840 + SX1262</td><td>nRF52 DFU (.zip)</td>
+      <td><a class="dl" href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/meshcore-mtbeacon-rak-wismesh-tag.zip">.zip · 429 KB</a></td>
+    </tr>
+    <tr>
+      <td>Seeed SenseCAP Solar</td><td>nRF52840 + SX1262</td><td>nRF52 DFU (.zip)</td>
+      <td><a class="dl" href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/meshcore-mtbeacon-sensecap-solar.zip">.zip · 435 KB</a></td>
+    </tr>
+    <tr>
+      <td>RAK11310</td><td>RP2040 + SX1262</td><td>UF2 drag-drop</td>
+      <td><a class="dl" href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/meshcore-mtbeacon-rak11310.uf2">.uf2 · 540 KB</a></td>
+    </tr>
+    <tr>
+      <td>RAK3112</td><td>ESP32-S3 + SX1262</td><td>esptool / web flasher</td>
+      <td><a class="dl" href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/meshcore-mtbeacon-rak3112.bin">.bin · 1.13 MB</a></td>
+    </tr>
+    <tr>
+      <td>Heltec WiFi LoRa 32 V3</td><td>ESP32-S3 + SX1262</td><td>esptool / web flasher</td>
+      <td><a class="dl" href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/meshcore-mtbeacon-heltec-v3.bin">.bin · 1.11 MB</a></td>
+    </tr>
+    <tr>
+      <td>Heltec WiFi LoRa 32 V4</td><td>ESP32-S3 + SX1262</td><td>esptool / web flasher</td>
+      <td><a class="dl" href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/meshcore-mtbeacon-heltec-v4.bin">.bin · 1.14 MB</a></td>
+    </tr>
+    <tr>
+      <td>RAK3x72</td><td>STM32WL (SoC radio)</td><td>STM32 SWD / DFU</td>
+      <td><a class="dl" href="https://github.com/tek126/MeshCore-mtbeacon/releases/latest/download/meshcore-mtbeacon-rak3x72.bin">.bin · 188 KB</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Flashing notes</h3>
+<div class="grid2">
+  <div>
+    <p><b>nRF52 (.zip)</b> — T114, RAK4631, RAK3401, WisMesh&nbsp;Tag.
+    Easiest is the official MeshCore web flasher (see the MeshCore flashing docs
+    for the current URL). Or via DFU:</p>
+    <pre><code>adafruit-nrfutil dfu serial \
+  --package meshcore-mtbeacon-&lt;board&gt;.zip \
+  -p /dev/ttyACM0 -b 115200</code></pre>
+  </div>
+  <div>
+    <p><b>RP2040 (.uf2)</b> — RAK11310. Hold <code>BOOTSEL</code> while plugging in
+    USB; a <code>RPI-RP2</code> drive appears. Drag the <code>.uf2</code> onto it;
+    it reboots into the firmware.</p>
+  </div>
+  <div>
+    <p><b>ESP32-S3 (.bin)</b> — RAK3112, Heltec V3/V4. Use the web flasher, or
+    esptool at the app offset for the standard MeshCore layout (substitute your
+    board's file):</p>
+    <pre><code>esptool.py --chip esp32s3 \
+  write_flash 0x10000 \
+  meshcore-mtbeacon-rak3112.bin</code></pre>
+    <p class="sub">Verify the offset against your board's MeshCore partition layout.</p>
+  </div>
+  <div>
+    <p><b>STM32WL (.bin)</b> — RAK3x72. STM32CubeProgrammer, or st-flash:</p>
+    <pre><code>st-flash write \
+  meshcore-mtbeacon-rak3x72.bin 0x08000000</code></pre>
+  </div>
+</div>
+</section>
+
+<section>
+<h2>CLI reference</h2>
+<p>Over serial (115200) or an authenticated admin remote-CLI session:</p>
+<table class="cmd">
+  <thead><tr><th>Command</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td>mtbeacon</td><td>show current config &amp; derived node id (same as <code>status</code>)</td></tr>
+    <tr><td>mtbeacon help</td><td>list all commands (detailed list prints to serial)</td></tr>
+    <tr><td>mtbeacon on / off</td><td>enable / disable periodic beaconing</td></tr>
+    <tr><td>mtbeacon send</td><td>transmit one beacon now (works even when off)</td></tr>
+    <tr><td>mtbeacon interval &lt;min&gt;</td><td>period between beacons, 1–1440</td></tr>
+    <tr><td>mtbeacon preset &lt;name&gt;</td><td>modem preset — LongFast, MediumFast, ShortFast, ShortTurbo, …</td></tr>
+    <tr><td>mtbeacon region &lt;name&gt;</td><td>region/country band — US, EU_868, ANZ, JP, … (alias <code>country</code>)</td></tr>
+    <tr><td>mtbeacon freq &lt;MHz|auto&gt;</td><td>manual frequency override; <code>auto</code> re-derives from region+preset</td></tr>
+    <tr><td>mtbeacon power &lt;dBm&gt;</td><td>TX power, −9…22 (auto-capped to the region's legal limit)</td></tr>
+    <tr><td>mtbeacon text &lt;string&gt;</td><td>announced text, ≤63 chars</td></tr>
+    <tr><td>mtbeacon nodeinfo on/off</td><td>also emit a NodeInfo (named node) — default on</td></tr>
+    <tr><td>mtbeacon position on/off</td><td>also emit a Position (map pin) — default on</td></tr>
+    <tr><td>mtbeacon presets / regions</td><td>list the available preset / region names</td></tr>
+  </tbody>
+</table>
+<p class="sub">
+  <b>Region + preset auto-tune the frequency.</b> Setting <code>region</code> or
+  <code>preset</code> computes the exact Meshtastic default-channel frequency the
+  same way Meshtastic firmware does (the preset's bandwidth sets how many channel
+  slots fit in the region band; the channel name hashes to a slot). So
+  <code>mtbeacon region EU_868</code> then <code>mtbeacon preset MediumFast</code>
+  lands on the frequency EU MediumFast nodes actually listen on — no manual math.
+  Use <code>mtbeacon freq &lt;MHz&gt;</code> only to override; <code>freq auto</code>
+  reverts.
+</p>
+<p class="sub">
+  Settings persist to <code>/mtbeacon</code> in the internal filesystem, separate
+  from core <code>NodePrefs</code> (core is untouched). Defaults: US&nbsp;915
+  LongFast, 5-minute interval, <b>disabled</b> until <code>mtbeacon on</code>. The
+  Meshtastic node number is derived from the repeater identity, so it is stable
+  across reboots.
+</p>
+</section>
+
+<section>
+<h2>How the packet is built</h2>
+<p>For the default public LongFast channel, the pieces are small and well-known:</p>
+<ul>
+  <li><b>Header</b> (16 bytes): broadcast dest <code>0xFFFFFFFF</code>, sender node id,
+      packet id, flags (hop limit), and the channel hash (<code>0x08</code> for the
+      default channel).</li>
+  <li><b>Payload</b>: a protobuf <code>Data{ portnum=TEXT_MESSAGE_APP, payload=text }</code>,
+      AES-CTR encrypted with the well-known default channel key.</li>
+  <li><b>Radio</b>: retuned to LongFast (BW&nbsp;250&nbsp;kHz, SF&nbsp;11, CR&nbsp;4/5)
+      and sync word <code>0x2B</code> for the transmit, then restored to the
+      repeater's MeshCore parameters.</li>
+</ul>
+</section>
+
+<section id="source">
+<h2>Source</h2>
+<p>Everything is open and inspectable. The add-on is three headers plus a demo;
+turning a stock repeater into a beacon repeater is ~40 <code>#ifdef</code>-guarded
+lines, all documented in <code>INTEGRATION.md</code>.</p>
+<ul>
+  <li><a href="https://github.com/tek126/MeshCore-mtbeacon/tree/meshtastic-beacon/examples/meshtastic_beacon">Download the source bundle (.tar.gz)</a>
+      — add-on + integration notes</li>
+  <li><a href="https://github.com/tek126/MeshCore-mtbeacon/tree/meshtastic-beacon/examples/meshtastic_beacon">Browse the source in your browser</a>, including:
+    <ul>
+      <li><a href="https://github.com/tek126/MeshCore-mtbeacon/blob/meshtastic-beacon/examples/meshtastic_beacon/MeshtasticBeacon.h">MeshtasticBeacon.h</a> — packet builder (header + AES-CTR + protobuf) and radio retune</li>
+      <li><a href="https://github.com/tek126/MeshCore-mtbeacon/blob/meshtastic-beacon/examples/meshtastic_beacon/MtBeaconControl.h">MtBeaconControl.h</a> — persisted config, <code>mtbeacon</code> CLI, scheduler, UI line</li>
+      <li><a href="https://github.com/tek126/MeshCore-mtbeacon/blob/meshtastic-beacon/examples/meshtastic_beacon/INTEGRATION.md">INTEGRATION.md</a> — the exact <code>simple_repeater</code> hooks</li>
+      <li><a href="https://github.com/tek126/MeshCore-mtbeacon/blob/meshtastic-beacon/examples/meshtastic_beacon/README.md">README.md</a> — full documentation</li>
+    </ul>
+  </li>
+</ul>
+<p class="sub">Built against MeshCore <code>e8d3c53</code>; the add-on is structured
+to live upstream-style under <code>examples/meshtastic_beacon/</code>.</p>
+</section>
+
+<section>
+<h2 id="etiquette">Caveats &amp; etiquette</h2>
+<ul>
+  <li><b>Region.</b> Default is US. For another region run
+      <code>mtbeacon region &lt;name&gt;</code> — it auto-tunes the frequency and
+      applies the region's power cap. Transmitting outside your permitted
+      band/power is still your responsibility.</li>
+  <li><b>You appear as a node.</b> NodeInfo/Position make the repeater show up on
+      other people's Meshtastic maps and node lists. That's the point, but turn it
+      off (<code>nodeinfo off</code> / <code>position off</code>) if you'd rather
+      just send the text.</li>
+  <li><b>Shared spectrum.</b> A beacon adds airtime to someone else's public
+      channel. Keep the interval long, respect duty-cycle limits, and don't beacon
+      onto channels you don't operate.</li>
+  <li><b>One-way only.</b> It announces presence; it does not route Meshtastic
+      traffic or appear as a full node.</li>
+</ul>
+</section>
+
+<footer>
+  <p><b>Built with generative AI.</b> The add-on firmware, this website, and the
+  supporting code were developed with the assistance of generative AI
+  (Anthropic's Claude), then reviewed and compiled by a human. Treat it
+  accordingly: read the source, verify on-air behavior, and test before relying
+  on it.</p>
+  <p>Community build, not affiliated with the MeshCore or Meshtastic projects.
+  Compiled from MeshCore source at commit <code>e8d3c53</code> with
+  <code>-D WITH_MT_BEACON</code>. <a href="#source">Source</a> is published above
+  (<a href="https://github.com/tek126/MeshCore-mtbeacon/tree/meshtastic-beacon/examples/meshtastic_beacon">.tar.gz</a> or
+  <a href="https://github.com/tek126/MeshCore-mtbeacon/tree/meshtastic-beacon/examples/meshtastic_beacon">browse</a>). Firmware is provided as-is; flashing is
+  at your own risk and is reversible.</p>
+</footer>
+
+</div>
+</body>
+</html>
