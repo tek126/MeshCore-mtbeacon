@@ -93,6 +93,9 @@ void setup() {
 
 #ifdef DISPLAY_CLASS
   ui_task.begin(the_mesh.getNodePrefs(), FIRMWARE_BUILD_DATE, FIRMWARE_VERSION);
+#ifdef WITH_MT_BEACON
+  ui_task.setBeacon(the_mesh.getBeacon());
+#endif
 #endif
 
   // send out initial zero hop Advertisement to the mesh
