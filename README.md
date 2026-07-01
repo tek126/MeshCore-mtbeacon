@@ -29,7 +29,7 @@ repeater build (without the flag) is byte-identical to upstream.
 
 ## Firmware
 
-Pre-built images for 11 boards (nRF52 / RP2040 / ESP32-S3 / STM32WL) are attached
+Pre-built images for 12 boards (nRF52 / RP2040 / ESP32-S3 / STM32WL) are attached
 to the [latest release](../../releases/latest). Flash the one for your board, then
 configure it over the CLI (`mtbeacon help`).
 
