@@ -29,9 +29,13 @@ repeater build (without the flag) is byte-identical to upstream.
 
 ## Firmware
 
-Pre-built images for 13 boards (nRF52 / RP2040 / ESP32-S3 / STM32WL) are attached
-to the [latest release](../../releases/latest). Flash the one for your board, then
+Pre-built images for **63 boards** (nRF52840 / ESP32-S3 / ESP32-C3 / ESP32-C6 /
+RP2040 / STM32WL, with SX1262 / SX1276 / LR1110 radios) are attached to the
+[latest release](../../releases/latest). Flash the one for your board, then
 configure it over the CLI (`mtbeacon help`).
+
+Nearly every repeater-capable MeshCore board now has a `*_repeater_mtbeacon` env —
+the release covers the whole fleet that builds cleanly from this tree.
 
 ## Build it yourself
 
