@@ -109,6 +109,7 @@ Then, over serial or via an admin remote-CLI session, use the `mtbeacon` verbs:
 | `mtbeacon region <name>` | region/country band: US, EU_868, EU_433, ANZ, CN, JP, KR, TW, RU, IN, NZ_865, TH, UA_433, UA_868 (alias `country`) |
 | `mtbeacon freq <MHz\|auto>` | manual frequency override; `auto` re-derives from region+preset |
 | `mtbeacon power <dBm>` | set TX power (−9…22), auto-capped to the region limit |
+| `mtbeacon hops <0-3>` | Meshtastic hop limit for presence + text (**default 0**) |
 | `mtbeacon text <string>` | set the announced text (≤63 chars) |
 | `mtbeacon nodeinfo on/off` | also emit a NodeInfo (named node) — default on |
 | `mtbeacon position on/off` | also emit a Position (map pin) — default on |
@@ -130,6 +131,12 @@ LongFast → 869.525). `mtbeacon freq` is only for a manual override; a `*` in
 **Region power cap.** Each region carries a legal TX-power ceiling (e.g. EU_433
 12 dBm, JP 16 dBm); the configured power is clamped to it, shown as `(cap)` in
 `status`.
+
+**Hop limit.** The beacon's Meshtastic packets go out at **0 hops by default**, so
+they're heard only by direct neighbors and are **never rebroadcast** across the
+Meshtastic network — a deliberately light-footprint default for a foreign beacon.
+Raise it with `mtbeacon hops <0-3>` (capped at 3) if you want limited relaying.
+Shown as `h<N>` in `status`.
 
 Settings persist to `/mtbeacon` in the internal filesystem (separate from
 `NodePrefs` — core prefs are untouched). Defaults are US LongFast, 5-min
