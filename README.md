@@ -14,8 +14,10 @@ Meshtastic node.
 
 - **Silent presence** — sends Meshtastic *NodeInfo* + *Position*, so the repeater
   appears as a **named node and a pin on the Meshtastic map** (no chat spam).
-- **Occasional announcement** — a chat text (`MeshCore repeater in range`) posted
-  rarely, paced off the repeater's own MeshCore flood advert.
+- **Occasional announcement** — a chat text (`MeshCore repeater in range`)
+  posted rarely: it rides a beacon burst right after each of the repeater's own
+  MeshCore flood adverts (so `advert` doubles as a live test), never on a
+  spammy timer.
 - **Region/preset aware** — computes the exact Meshtastic default-channel
   frequency the way Meshtastic firmware does; per-region TX-power caps; per-board
   `hw_model` so it reports the right hardware.
@@ -23,6 +25,9 @@ Meshtastic node.
   off-channel airtime bounding.
 - **Runtime CLI** — `mtbeacon on|off|status|send|interval|text.mult|preset|region|…`
   over serial or an admin remote-CLI session. Nothing is hard-coded.
+- **Self-recovering (nRF52)** — a hardware watchdog reboots a hung node instead
+  of leaving it dead until a power cycle, and `get pwrmgt.bootreason` reports
+  why the last reset happened.
 
 It's integrated into `simple_repeater` behind `-D WITH_MT_BEACON`, so a stock
 repeater build (without the flag) is byte-identical to upstream.
