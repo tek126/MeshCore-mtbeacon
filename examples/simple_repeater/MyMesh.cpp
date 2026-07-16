@@ -1029,6 +1029,9 @@ void MyMesh::sendSelfAdvertisement(int delay_millis, bool flood) {
   if (pkt) {
     if (flood) {
       sendFloodScoped(default_scope, pkt, delay_millis, _prefs.path_hash_mode + 1);
+#ifdef WITH_MT_BEACON
+      _beacon.onFloodAdvert();  // an explicit flood advert (CLI 'advert') also carries the text
+#endif
     } else {
       sendZeroHop(pkt, delay_millis);
     }
@@ -1294,6 +1297,9 @@ void MyMesh::loop() {
 
     updateFloodAdvertTimer(); // schedule next flood advert
     updateAdvertTimer();      // also schedule local advert (so they don't overlap)
+#ifdef WITH_MT_BEACON
+    _beacon.onFloodAdvert();  // Meshtastic chat text rides a burst shortly after
+#endif
   } else if (next_local_advert && millisHasNowPassed(next_local_advert)) {
     mesh::Packet *pkt = createSelfAdvert();
     if (pkt) sendZeroHop(pkt);
