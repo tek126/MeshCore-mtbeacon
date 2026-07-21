@@ -15,13 +15,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-thinknode-m1.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-thinknode-m1.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-thinknode-m1.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -39,13 +39,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-thinknode-m3.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-thinknode-m3.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-thinknode-m3.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -63,13 +63,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-thinknode-m6.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-thinknode-m6.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-thinknode-m6.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -87,13 +87,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-gat562-30s-mesh-kit.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-gat562-30s-mesh-kit.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-gat562-30s-mesh-kit.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -111,13 +111,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-gat562-mesh-evb-pro.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-gat562-mesh-evb-pro.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-gat562-mesh-evb-pro.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -135,13 +135,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-gat562-mesh-tracker-pro.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-gat562-mesh-tracker-pro.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-gat562-mesh-tracker-pro.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -159,19 +159,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-generic-e22-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-generic-e22-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-generic-e22-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-generic-e22.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-generic-e22.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-generic-e22.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -189,19 +189,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-heltec-ct62-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-ct62-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-ct62-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-ct62.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-ct62.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-ct62.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -219,19 +219,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-heltec-wireless-paper-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-wireless-paper-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-wireless-paper-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-wireless-paper.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-wireless-paper.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-wireless-paper.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -249,13 +249,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-heltec-t096.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-t096.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-t096.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -273,13 +273,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-heltec-t1.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-t1.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-t1.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -297,13 +297,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-mesh-pocket.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-mesh-pocket.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-mesh-pocket.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -321,13 +321,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-heltec-mesh-solar.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-mesh-solar.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-mesh-solar.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -345,13 +345,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-heltec-t114-display.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-t114-display.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-t114-display.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -363,13 +363,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-heltec-t114-nodisplay.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-t114-nodisplay.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-t114-nodisplay.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -388,19 +388,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-heltec-e213-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-e213-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-e213-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-e213.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-e213.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-e213.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -418,19 +418,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-heltec-e290-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-e290-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-e290-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-e290.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-e290.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-e290.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -448,19 +448,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-heltec-tracker-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-tracker-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-tracker-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-tracker.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-tracker.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-tracker.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -478,19 +478,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-heltec-tracker-v2-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-tracker-v2-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-tracker-v2-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-tracker-v2.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-tracker-v2.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-tracker-v2.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -508,19 +508,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-heltec-v2-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-v2-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-v2-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-v2.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-v2.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-v2.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -538,19 +538,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-heltec-v3-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-v3-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-v3-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-v3.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-v3.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-v3.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -568,19 +568,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-heltec-v4-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-v4-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-v4-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-v4.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-heltec-v4.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-heltec-v4.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -598,13 +598,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-ikoka-handheld-nrf.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-ikoka-handheld-nrf.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-ikoka-handheld-nrf.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -622,13 +622,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-ikoka-nano-nrf.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-ikoka-nano-nrf.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-ikoka-nano-nrf.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -646,13 +646,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-ikoka-stick-nrf.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-ikoka-stick-nrf.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-ikoka-stick-nrf.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -670,13 +670,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-keepteen-lt1.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-keepteen-lt1.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-keepteen-lt1.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -694,19 +694,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-lilygo-tlora-v2-1-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tlora-v2-1-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tlora-v2-1-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tlora-v2-1.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tlora-v2-1.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tlora-v2-1.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -724,19 +724,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-sx1262-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tbeam-sx1262-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tbeam-sx1262-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-sx1262.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tbeam-sx1262.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tbeam-sx1262.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -754,19 +754,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-sx1276-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tbeam-sx1276-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tbeam-sx1276-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-sx1276.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tbeam-sx1276.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tbeam-sx1276.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -784,19 +784,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-1w-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tbeam-1w-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tbeam-1w-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-1w.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tbeam-1w.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tbeam-1w.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -814,19 +814,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-supreme-sx1262-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tbeam-supreme-sx1262-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tbeam-supreme-sx1262-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-supreme-sx1262.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tbeam-supreme-sx1262.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tbeam-supreme-sx1262.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -844,19 +844,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-lilygo-tdeck-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tdeck-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tdeck-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tdeck.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-tdeck.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-tdeck.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -874,19 +874,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-lilygo-teth-elite-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-teth-elite-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-teth-elite-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-teth-elite.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-teth-elite.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-teth-elite.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -904,13 +904,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-lilygo-t-impulse-plus.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-t-impulse-plus.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-t-impulse-plus.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -928,19 +928,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-lilygo-t3s3-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-t3s3-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-t3s3-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-t3s3.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-t3s3.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-t3s3.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -958,19 +958,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-lilygo-t3s3-sx1276-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-t3s3-sx1276-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-t3s3-sx1276-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-t3s3-sx1276.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-lilygo-t3s3-sx1276.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-lilygo-t3s3-sx1276.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -988,19 +988,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-m5stack-unit-c6l-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-m5stack-unit-c6l-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-m5stack-unit-c6l-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-m5stack-unit-c6l.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-m5stack-unit-c6l.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-m5stack-unit-c6l.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -1018,19 +1018,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-meshadventurer-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-meshadventurer-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-meshadventurer-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-meshadventurer.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-meshadventurer.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-meshadventurer.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -1048,13 +1048,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-minewsemi-me25ls01.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-minewsemi-me25ls01.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-minewsemi-me25ls01.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1072,13 +1072,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-muziworks-r1-neo.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-muziworks-r1-neo.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-muziworks-r1-neo.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1096,19 +1096,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-nibble-screen-connect-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-nibble-screen-connect-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-nibble-screen-connect-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-nibble-screen-connect.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-nibble-screen-connect.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-nibble-screen-connect.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -1126,13 +1126,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-promicro.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-promicro.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-promicro.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1150,13 +1150,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-rak4631.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-rak4631.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-rak4631.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1174,19 +1174,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-rak3112-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-rak3112-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-rak3112-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-rak3112.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-rak3112.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-rak3112.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -1204,13 +1204,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-rak3401.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-rak3401.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-rak3401.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1228,13 +1228,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-rak-wismesh-tag.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-rak-wismesh-tag.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-rak-wismesh-tag.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1252,13 +1252,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "download",
                   "name": "meshcore-mtbeacon-rak11310.uf2",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-rak11310.uf2",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-rak11310.uf2",
                   "title": "UF2 (drag-and-drop)"
                 }
               ]
@@ -1276,13 +1276,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "download",
                   "name": "meshcore-mtbeacon-rak3x72.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-rak3x72.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-rak3x72.bin",
                   "title": "Binary (SWD/DFU flash)"
                 }
               ]
@@ -1300,13 +1300,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "download",
                   "name": "meshcore-mtbeacon-rpi-picow.uf2",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-rpi-picow.uf2",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-rpi-picow.uf2",
                   "title": "UF2 (drag-and-drop)"
                 }
               ]
@@ -1324,13 +1324,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-sensecap-solar.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-sensecap-solar.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-sensecap-solar.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1348,13 +1348,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-t1000-e.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-t1000-e.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-t1000-e.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1372,13 +1372,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-wio-tracker-l1.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-wio-tracker-l1.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-wio-tracker-l1.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1396,19 +1396,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-xiao-c3-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-xiao-c3-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-xiao-c3-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-xiao-c3.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-xiao-c3.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-xiao-c3.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -1426,19 +1426,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-xiao-s3-wio-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-xiao-s3-wio-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-xiao-s3-wio-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-xiao-s3-wio.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-xiao-s3-wio.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-xiao-s3-wio.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -1456,13 +1456,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-xiao-nrf52.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-xiao-nrf52.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-xiao-nrf52.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1480,13 +1480,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "download",
                   "name": "meshcore-mtbeacon-xiao-rp2040.uf2",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-xiao-rp2040.uf2",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-xiao-rp2040.uf2",
                   "title": "UF2 (drag-and-drop)"
                 }
               ]
@@ -1504,19 +1504,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-xiao-s3-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-xiao-s3-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-xiao-s3-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-xiao-s3.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-xiao-s3.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-xiao-s3.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -1534,13 +1534,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "download",
                   "name": "meshcore-mtbeacon-tiny-relay.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-tiny-relay.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-tiny-relay.bin",
                   "title": "Binary (SWD/DFU flash)"
                 }
               ]
@@ -1558,13 +1558,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash",
                   "name": "meshcore-mtbeacon-nano-g2-ultra.zip",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-nano-g2-ultra.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-nano-g2-ultra.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1582,19 +1582,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-station-g2-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-station-g2-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-station-g2-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-station-g2.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-station-g2.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-station-g2.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -1612,19 +1612,19 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "flash-wipe",
                   "name": "meshcore-mtbeacon-station-g3-esp32-merged.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-station-g3-esp32-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-station-g3-esp32-merged.bin",
                   "title": "Full install (bootloader + firmware)"
                 },
                 {
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-station-g3-esp32.bin",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-station-g3-esp32.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-station-g3-esp32.bin",
                   "title": "Update (app only \u2014 device already runs MeshCore)"
                 }
               ]
@@ -1642,13 +1642,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "download",
                   "name": "meshcore-mtbeacon-waveshare-rp2040-lora.uf2",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-waveshare-rp2040-lora.uf2",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-waveshare-rp2040-lora.uf2",
                   "title": "UF2 (drag-and-drop)"
                 }
               ]
@@ -1666,13 +1666,13 @@
           "role": "repeater",
           "title": "Repeater + Meshtastic beacon",
           "version": {
-            "v0.2.3": {
-              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.3: the beacon's chat text now goes out right after each MeshCore flood advert (it previously relied on an uptime timer that reset on every reboot and rarely fired), `mtbeacon status` shows a live countdown to the next text, and nRF52 boards gain a hardware watchdog that auto-reboots a hung node plus a queryable boot/reset reason (`get pwrmgt.bootreason`). Includes the v0.2.2 hard-hang and RX re-arm fixes. Recommended update; on-device settings are preserved.",
+            "v0.2.4": {
+              "notes": "MeshCore repeater with the Meshtastic beacon built in: it periodically retunes to the Meshtastic channel, emits NodeInfo/Position/text so it appears on the Meshtastic map, then returns to MeshCore. Meshtastic packets go out at 0 hops by default (heard by direct neighbors, never rebroadcast); adjustable 0-3 via `mtbeacon hops`. Configure over the serial CLI with the `mtbeacon` commands (run `mtbeacon help`). v0.2.4: reliability fix for the transmit path. A burst retunes the radio to the Meshtastic channel and back, and that retune can occasionally cost the radio's TxDone interrupt - the packet still goes out, but the completion signal is lost. The beacon used to sit on a fixed 5-second timeout in that case, freezing the whole node (no forwarding, no CLI) and then reporting the packet as failed. The wait is now bounded by the packet's own airtime, so the node keeps running and the send is reported honestly; the console names the condition if it happens. Includes all v0.2.3 changes (advert-driven chat text, nRF52 watchdog, boot reason). Recommended update; on-device settings are preserved.",
               "files": [
                 {
                   "type": "download",
                   "name": "meshcore-mtbeacon-wio-wm1110.hex",
-                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.3/meshcore-mtbeacon-wio-wm1110.hex",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.4/meshcore-mtbeacon-wio-wm1110.hex",
                   "title": "Intel HEX (SWD flash)"
                 }
               ]
