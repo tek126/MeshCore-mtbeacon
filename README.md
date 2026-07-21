@@ -26,10 +26,11 @@ Meshtastic node.
 - **Runtime CLI** — `mtbeacon on|off|status|send|interval|text.mult|preset|region|…`
   over serial or an admin remote-CLI session. Nothing is hard-coded.
 - **Self-recovering** — a transmit whose TxDone interrupt goes missing across a
-  retune falls back to an airtime bound instead of freezing the main loop, and
-  says so on the console. On nRF52 a hardware watchdog reboots a hung node
-  instead of leaving it dead until a power cycle, with `get pwrmgt.bootreason`
-  reporting why the last reset happened.
+  retune falls back to an airtime bound instead of freezing the main loop, then
+  reads the radio chip's own TxDone flag to say whether the packet actually went
+  out, and reports both on the console. On nRF52 a hardware watchdog reboots a
+  hung node instead of leaving it dead until a power cycle, with
+  `get pwrmgt.bootreason` reporting why the last reset happened.
 
 It's integrated into `simple_repeater` behind `-D WITH_MT_BEACON`, so a stock
 repeater build (without the flag) is byte-identical to upstream.
