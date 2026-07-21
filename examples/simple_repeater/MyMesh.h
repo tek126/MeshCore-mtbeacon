@@ -73,12 +73,12 @@ struct NeighbourInfo {
 };
 
 #ifndef FIRMWARE_BUILD_DATE
-  #define FIRMWARE_BUILD_DATE   "16 Jul 2026"
+  #define FIRMWARE_BUILD_DATE   "21 Jul 2026"
 #endif
 
 #ifndef FIRMWARE_VERSION
   #ifdef WITH_MT_BEACON
-    #define FIRMWARE_VERSION   "v1.16.0+mtbeacon-0.2.3"
+    #define FIRMWARE_VERSION   "v1.16.0+mtbeacon-0.2.4"
   #else
     #define FIRMWARE_VERSION   "v1.16.0"
   #endif

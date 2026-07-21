@@ -67,6 +67,13 @@ listen-before-talk (bounded CAD — it never calls RadioLib's blocking
 retune/transmit/restore cycle, and an unconditional `startRecv()` after
 restore so a power-saving node can't sleep with the radio in standby.
 
+The transmit wait is bounded the same way (v0.2.4): `radioSendBlocking()`
+normally ends on the TxDone interrupt, but caps the wait at the packet's
+estimated airtime x2 + 500 ms, since past that the packet has physically left
+the antenna. It sets its optional `bool* irq_missed` when it fell back, and
+returns false only when `startSendRaw()` refused — so a lost interrupt no
+longer stalls the loop for seconds or misreports a sent packet as failed.
+
 ### 5. Flood-advert events — the chat text pacing (v0.2.3)
 
 Both places the repeater floods a MeshCore advert notify the beacon, so the

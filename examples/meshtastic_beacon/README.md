@@ -166,7 +166,26 @@ power-saving nodes don't sleep deaf. To add it to another board, copy the
 `*_repeater_mtbeacon` env shape: extend that board's repeater env and add
 `-D WITH_MT_BEACON -I examples/meshtastic_beacon`.
 
-## Reliability (nRF52 boards)
+## Reliability
+
+Each burst retunes the radio to the Meshtastic PHY and back. Completion of a
+transmit is normally signalled by the radio's **TxDone interrupt** — but that
+edge can occasionally be lost across a retune, even though the packet went out
+perfectly well. Rather than sit on a fixed multi-second timeout (which freezes
+the whole main loop and then reports a *failure* for a packet that was actually
+transmitted), the send is bounded by the packet's **estimated airtime**: once
+that has elapsed the packet has physically left the antenna, so the beacon moves
+on. Normal sends are unaffected — the interrupt arrives first and the wait ends
+immediately. A send only reports failure when the radio would not start at all.
+
+When the fallback is used, the console says so, which makes a misbehaving ISR
+visible instead of silent:
+
+```
+beacon: TxDone IRQ missed on 1/2 packet(s) - used airtime fallback
+```
+
+### nRF52 boards
 
 nRF52 builds (RAK4631, ProMicro/Faketec, T114, T1000-E, XIAO nRF52, …) arm the
 **hardware watchdog** (90 s, fed every loop pass): if the node ever hard-hangs,
