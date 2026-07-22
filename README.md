@@ -25,12 +25,17 @@ Meshtastic node.
   off-channel airtime bounding.
 - **Runtime CLI** — `mtbeacon on|off|status|send|interval|text.mult|preset|region|…`
   over serial or an admin remote-CLI session. Nothing is hard-coded.
+- **Battery on the map** — a Meshtastic telemetry packet carries battery
+  percentage, voltage and uptime, so a solar or battery repeater shows its state
+  of charge in any Meshtastic client.
 - **Self-recovering** — a transmit whose TxDone interrupt goes missing across a
   retune falls back to an airtime bound instead of freezing the main loop, then
   reads the radio chip's own TxDone flag to say whether the packet actually went
-  out, and reports both on the console. On nRF52 a hardware watchdog reboots a
-  hung node instead of leaving it dead until a power cycle, with
-  `get pwrmgt.bootreason` reporting why the last reset happened.
+  out. After a run of transmits the chip reports as dead, the radio
+  **re-initialises itself** rather than staying wedged until a power cycle, and
+  `mtbeacon stats` shows the running transmit health. On nRF52 a hardware
+  watchdog reboots a hung node instead of leaving it dead until a power cycle,
+  with `get pwrmgt.bootreason` reporting why the last reset happened.
 
 It's integrated into `simple_repeater` behind `-D WITH_MT_BEACON`, so a stock
 repeater build (without the flag) is byte-identical to upstream.
