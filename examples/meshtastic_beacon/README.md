@@ -119,6 +119,23 @@ Then, over serial or via an admin remote-CLI session, use the `mtbeacon` verbs:
 | `mtbeacon telemetry on/off` | also emit Telemetry (battery + uptime) — default on |
 | `mtbeacon presets` / `mtbeacon regions` | list available preset / region names |
 
+**Channel blocklist (v0.2.7).** Separate from the beacon, the repeater can be
+told not to forward specific `#hashtag` channels — by name, no key needed:
+
+| Command | Effect |
+| --- | --- |
+| `block` / `block list` | list blocked channels + their derived hash byte |
+| `block #dispatches` | stop repeating that `#hashtag` channel (up to 8) |
+| `unblock #dispatches` | resume repeating it |
+
+MeshCore `#hashtag` channels derive their key from the name
+(`SHA-256("#name")[:16]`), so the firmware computes the on-air channel hash
+itself. Two limits are inherent to the wire format: only `#`-named channels work
+(a private channel with a random key isn't derivable from its name), and the
+on-wire channel id is a single byte, so a block occasionally also catches an
+unrelated channel sharing that byte (~1 in 256 — the listed hash makes a
+collision diagnosable). Adverts, DMs and ACKs are never affected.
+
 **Shows up as a node on the Meshtastic map.** The periodic beacon is a silent
 *presence*: a **NodeInfo** (so the repeater appears as a named node — long name
 `MC <repeater name>`, short name `MC` + 2 hex of the node id, e.g. `MC7a`), a

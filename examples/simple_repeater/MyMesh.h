@@ -34,6 +34,7 @@
 #include <helpers/TxtDataHelpers.h>
 #include <helpers/RegionMap.h>
 #include "RateLimiter.h"
+#include "ChannelBlocker.h"
 
 #ifdef WITH_MT_BEACON
 #include "MtBeaconControl.h"   // -I examples/meshtastic_beacon
@@ -73,12 +74,12 @@ struct NeighbourInfo {
 };
 
 #ifndef FIRMWARE_BUILD_DATE
-  #define FIRMWARE_BUILD_DATE   "22 Jul 2026"
+  #define FIRMWARE_BUILD_DATE   "2 Aug 2026"
 #endif
 
 #ifndef FIRMWARE_VERSION
   #ifdef WITH_MT_BEACON
-    #define FIRMWARE_VERSION   "v1.16.0+mtbeacon-0.2.6"
+    #define FIRMWARE_VERSION   "v1.16.0+mtbeacon-0.2.7"
   #else
     #define FIRMWARE_VERSION   "v1.16.0"
   #endif
@@ -97,6 +98,7 @@ class MyMesh : public mesh::Mesh, public CommonCLICallbacks {
   NodePrefs _prefs;
   ClientACL  acl;
   CommonCLI _cli;
+  ChannelBlocker _blocker;   // #channels this repeater is configured not to repeat
 #ifdef WITH_MT_BEACON
   MtBeaconControl _beacon;
 #endif
