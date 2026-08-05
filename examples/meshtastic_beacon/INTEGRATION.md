@@ -1,10 +1,10 @@
 # How the beacon hooks into `simple_repeater`
 
-Everything is behind `#ifdef WITH_MT_BEACON`, so a stock repeater build
-(without the flag) compiles the guards to nothing and is byte-identical to
-upstream. The add-on itself is header-only (`MtBeaconControl.h` +
-`MeshtasticBeacon.h` / `MeshtasticProto.h`); the repeater owns one
-`MtBeaconControl` instance and calls into it at six points.
+All of the code is behind `#ifdef WITH_MT_BEACON`. Thus a standard repeater build
+(without the flag) compiles the guards to nothing and is byte-identical to upstream.
+The add-on is header-only (`MtBeaconControl.h` + `MeshtasticBeacon.h` /
+`MeshtasticProto.h`). The repeater has one `MtBeaconControl` instance and calls into
+it at six points.
 
 ## Hook points
 
@@ -20,14 +20,13 @@ upstream. The add-on itself is header-only (`MtBeaconControl.h` +
 #endif
 ```
 
-`FIRMWARE_VERSION` also gains a `+mtbeacon` suffix so `ver` shows which build
-is flashed.
+`FIRMWARE_VERSION` also gets a `+mtbeacon` suffix, so `ver` shows the build that is
+flashed.
 
 ### 2. Identity + persisted config — `MyMesh::begin()`
 
-The Meshtastic node number and starting packet id are derived from the
-repeater's public key, so they're stable across reboots without any extra
-state:
+The Meshtastic node number and the start packet id come from the public key of the
+repeater. Thus they are stable across restarts, with no extra state:
 
 ```cpp
 const uint8_t* pk = self_id.pub_key;
@@ -38,16 +37,15 @@ _beacon.begin(_fs, node, seed);   // loads /mtbeacon from the filesystem
 
 ### 3. CLI verbs — `MyMesh::handleCommand()`
 
-`_beacon.handleCommand(command, reply, _fs)` is tried before the common CLI;
-it claims only `mtbeacon ...` and returns false for everything else, so the
-existing command surface is untouched. Works over serial and admin remote-CLI
-sessions alike.
+The firmware tries `_beacon.handleCommand(command, reply, _fs)` before the common
+CLI. It claims only `mtbeacon ...` and returns false for all else, so the existing
+commands do not change. It operates over serial and admin remote-CLI sessions.
 
 ### 4. The beacon tick — tail of `MyMesh::loop()`
 
-The repeater builds a `Context` (node name, configured lat/lon, RTC epoch,
-flood-advert interval, and the CURRENT MeshCore radio params to restore —
-including any active `tempradio` override) and calls:
+The repeater builds a `Context` (the node name, the configured lat/lon, the RTC
+epoch, the flood-advert interval, and the CURRENT MeshCore radio parameters to
+restore — including any active `tempradio` value) and calls:
 
 ```cpp
 bool busy = hasPendingWork() || radio_driver.isReceiving()
@@ -55,26 +53,26 @@ bool busy = hasPendingWork() || radio_driver.isReceiving()
 _beacon.tick(radio_driver, radio, busy, ctx);
 ```
 
-The `busy` guard is load-bearing: `hasPendingWork()` misses a packet that has
-already been dequeued into an in-flight transmit, and `isReceiving()` is false
-during TX — `!isInRecvMode()` covers that window so the beacon can never
-retune the radio mid-transmit. When busy, the beacon defers a few seconds and
-retries.
+The `busy` guard is important. `hasPendingWork()` does not see a packet that the
+firmware already moved into an in-flight transmit, and `isReceiving()` is false
+during TX. `!isInRecvMode()` covers that time, so the beacon cannot change the radio
+in the middle of a transmit. When busy, the beacon waits a few seconds and tries
+again.
 
-`tick()` does everything else internally: interval scheduling with jitter,
-listen-before-talk (bounded CAD — it never calls RadioLib's blocking
-`scanChannel()`, whose IRQ wait has no timeout), EU duty-cycle hold, the
-retune/transmit/restore cycle, and an unconditional `startRecv()` after
-restore so a power-saving node can't sleep with the radio in standby.
+`tick()` does all the rest inside: the interval schedule with jitter,
+listen-before-talk (bounded CAD — it never calls the RadioLib blocking
+`scanChannel()`, whose IRQ wait has no timeout), the EU duty-cycle hold, the
+change/transmit/restore cycle, and a `startRecv()` after the restore every time, so
+a power-saving node cannot sleep with the radio in standby.
 
-The transmit wait is bounded the same way (v0.2.4): `radioSendChecked()`
-normally ends on the TxDone interrupt, but caps the wait at the packet's
-estimated airtime x2 + 500 ms, since past that a transmit that started has
-physically finished — so a lost interrupt no longer stalls the loop for seconds.
+The transmit wait has the same bound (v0.2.4). `radioSendChecked()` normally ends on
+the TxDone interrupt, but it limits the wait to the packet estimated airtime x2 +
+500 ms. After that, a transmit that started has finished. Thus a lost interrupt does
+not stop the loop for seconds.
 
-When the interrupt is missed it then reads the chip's own TxDone flag via
-RadioLib's family-agnostic `checkIrq(RADIOLIB_IRQ_TX_DONE)` (v0.2.5) and
-returns a `TxOutcome` saying which happened:
+When the interrupt is lost, the firmware then reads the chip TxDone flag with the
+RadioLib family-independent `checkIrq(RADIOLIB_IRQ_TX_DONE)` (v0.2.5). It returns a
+`TxOutcome` that says which happened:
 
 | outcome | meaning |
 |---|---|
@@ -84,20 +82,20 @@ returns a `TxOutcome` saying which happened:
 | `TX_PRESUMED` | interrupt missed, chip can't report — airtime bound only |
 | `TX_NOT_STARTED` | `startSendRaw()` refused |
 
-Use `txDelivered(r)` for the did-it-go-out question and `txUsedFallback(r)` for
-the ISR-health one. The register read must precede `onSendFinished()`, whose
+Use `txDelivered(r)` for the "did it go out" question and `txUsedFallback(r)` for
+the ISR-health question. The register read must be before `onSendFinished()`; its
 `finishTransmit()` clears the IRQ flags.
 
-These three (`TxOutcome`, `txDelivered`, `txUsedFallback`) live in
-`MeshtasticProto.h`, not `MeshtasticBeacon.h`, so the bookkeeping below is
-host-testable.
+These three (`TxOutcome`, `txDelivered`, `txUsedFallback`) are in
+`MeshtasticProto.h`, not `MeshtasticBeacon.h`. Thus you can test the code below on a
+host.
 
 ### 4b. Transmit health and self-repair (v0.2.6)
 
-Feed each outcome to `txStatsRecord(stats, r, millis())`. It updates a `TxStats`
-and returns the current **failure streak**; when that reaches
-`MT_BEACON_FAIL_STREAK` (default 3, `-D`-overridable), call `radioRecover()`
-*instead of* `radioRestoreMeshCore()` at the end of the burst:
+Give each outcome to `txStatsRecord(stats, r, millis())`. It updates a `TxStats` and
+returns the current **failure streak**. When that reaches `MT_BEACON_FAIL_STREAK`
+(default 3, change it with `-D`), call `radioRecover()` *instead of*
+`radioRestoreMeshCore()` at the end of the burst:
 
 ```cpp
 meshtastic::TxOutcome r = meshtastic::radioSendChecked(driver, radio, pkt, len);
@@ -114,37 +112,35 @@ if (wedged) {
 ```
 
 `radioRecover()` is `radioRestoreMeshCore()` plus, first: `standby()`,
-`clearIrqFlags(0xFFFFFFFF)` and `driver.begin()`. That last call is the point of
-the exercise — `RadioLibWrapper::begin()` re-registers the TxDone interrupt
-action, which is the thing most likely to have been lost across a retune. It
-deliberately stops short of a chip reset (that needs per-family `begin()`
-parameters the wrapper doesn't expose). Side effect: `begin()` restarts
-noise-floor calibration.
+`clearIrqFlags(0xFFFFFFFF)`, and `driver.begin()`. That last call is the point of
+the function — `RadioLibWrapper::begin()` registers the TxDone interrupt action
+again, which is the item most likely lost during a radio change. It does not do a
+full chip reset (that needs per-family `begin()` parameters that the wrapper does
+not expose). Side effect: `begin()` restarts the noise-floor calibration.
 
-`formatTxStats(out, cap, stats, tag, millis() - stats.last_fail_ms)` renders the
-one-line CLI summary. Note the counters nest: `irq_missed` counts every transmit
-whose interrupt never arrived, and `hw_failed` is the subset the chip confirmed
-never went out.
+`formatTxStats(out, cap, stats, tag, millis() - stats.last_fail_ms)` makes the
+one-line CLI summary. The counters nest: `irq_missed` counts each transmit with no
+interrupt, and `hw_failed` is the part that the chip confirmed did not go out.
 
 ### 4c. Telemetry — battery and uptime (v0.2.6)
 
 `buildTelemetryPayload(out, batt_mv, uptime_s, epoch)` encodes a Meshtastic
-`Telemetry{DeviceMetrics}` for `PORT_TELEMETRY` (67). Supply the two new
-`Context` fields from the repeater:
+`Telemetry{DeviceMetrics}` for `PORT_TELEMETRY` (67). Give the two new `Context`
+fields from the repeater:
 
 ```cpp
 ctx.batt_millivolts = board.getBattMilliVolts();   // 0 if no battery sense
 ctx.uptime_secs     = (uint32_t)(uptime_millis / 1000);
 ```
 
-It returns 0 when there is nothing measurable to report, so the caller skips the
-packet entirely rather than broadcasting an empty submessage. `Telemetry.time`
-is `fixed32`, the same nanopb trap as `Position.time`.
+It returns 0 when there is nothing to report. Thus the caller does not send the
+packet, and does not broadcast an empty submessage. `Telemetry.time` is `fixed32`,
+the same nanopb trap as `Position.time`.
 
 ### 5. Flood-advert events — the chat text pacing (v0.2.3)
 
-Both places the repeater floods a MeshCore advert notify the beacon, so the
-chat text rides a beacon burst ~15 s later:
+Both places where the repeater sends a MeshCore flood advert notify the beacon, so
+the chat text goes out on a beacon burst near 15 s later:
 
 ```cpp
 // periodic timer block in MyMesh::loop()
@@ -155,26 +151,26 @@ _beacon.onFloodAdvert();
 _beacon.onFloodAdvert();
 ```
 
-This is what paces the text to the repeater's real advert cadence instead of a
-boot-reset uptime timer. `onFloodAdvert()` arms `pending_text` and pulls the
-next burst close; delivery still dedups through the single pending flag.
+This paces the text to the real advert schedule of the repeater, not a boot-reset
+uptime timer. `onFloodAdvert()` arms `pending_text` and moves the next burst close.
+The single pending flag still removes duplicate deliveries.
 
 ### 6. UI line — `UITask`
 
-`ui_task.setBeacon(the_mesh.getBeacon())` (in `main.cpp` setup); the task
-calls `_beacon->uiLine()` to show `Beacon ON LongFast` / `Beacon off` on the
-OLED home screen.
+`ui_task.setBeacon(the_mesh.getBeacon())` (in `main.cpp` setup). The task calls
+`_beacon->uiLine()` to show `Beacon ON LongFast` / `Beacon off` on the OLED home
+screen.
 
 ## Shared-radio requirements
 
-The beacon drives the raw RadioLib object directly for the off-band burst, so
-`RadioLibWrapper::startRecv()` is public (it re-arms hardware RX and re-syncs
-the wrapper's cached state unconditionally — `recvRaw()` is not a substitute,
-since the wrapper's state can be stale after the raw retune).
+The beacon drives the raw RadioLib object directly for the off-band burst. Thus
+`RadioLibWrapper::startRecv()` is public (it arms the hardware RX again and syncs the
+cached wrapper state every time — `recvRaw()` is not a substitute, because the
+wrapper state can be old after the raw radio change).
 
 ## Adding a board
 
-Copy the `*_repeater_mtbeacon` env shape onto the board's repeater env:
+Copy the `*_repeater_mtbeacon` env shape onto the repeater env of the board:
 
 ```ini
 [env:<board>_repeater_mtbeacon]
@@ -186,6 +182,6 @@ build_flags = ${env:<board>_repeater.build_flags}
 lib_deps = ${env:<board>_repeater.lib_deps}
 ```
 
-Only `MESHCORE_SYNC_WORD` needs overriding if a board's MeshCore sync word
-differs from the default `0x12`. The radio helpers are templated on the
-concrete radio class, so SX1262 / SX1276 / LR1110 all bind unchanged.
+You need to override `MESHCORE_SYNC_WORD` only if the MeshCore sync word of a board
+is not the default `0x12`. The radio helpers are templated on the concrete radio
+class, so SX1262 / SX1276 / LR1110 all bind unchanged.
