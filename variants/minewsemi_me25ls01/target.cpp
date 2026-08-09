@@ -21,6 +21,12 @@ extern EnvironmentSensorManager sensors;
   NullDisplayDriver display;
 #endif
 
+#ifdef PIN_USER_BTN
+// v1.17.0 UITask references user_btn when PIN_USER_BTN + DISPLAY_CLASS are set;
+// this board's target never provided one.
+MomentaryButton user_btn(PIN_USER_BTN, 1000, true);
+#endif
+
 #ifndef LORA_CR
   #define LORA_CR      5
 #endif

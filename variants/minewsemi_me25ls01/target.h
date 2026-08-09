@@ -9,8 +9,13 @@
 #include <helpers/SensorManager.h>
 #include <helpers/sensors/LocationProvider.h>
 #include <helpers/sensors/EnvironmentSensorManager.h>
+#include <helpers/ui/MomentaryButton.h>
 #ifdef DISPLAY_CLASS
   #include <helpers/ui/NullDisplayDriver.h>
+#endif
+
+#ifdef PIN_USER_BTN
+extern MomentaryButton user_btn;
 #endif
 
 #ifdef DISPLAY_CLASS
