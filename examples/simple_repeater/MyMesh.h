@@ -80,7 +80,7 @@ struct NeighbourInfo {
 
 #ifndef FIRMWARE_VERSION
   #ifdef WITH_MT_BEACON
-    #define FIRMWARE_VERSION   "v1.17.0+mtbeacon-0.2.7"
+    #define FIRMWARE_VERSION   "v1.17.0+mtbeacon-0.2.8"
   #else
     #define FIRMWARE_VERSION   "v1.17.0"
   #endif
