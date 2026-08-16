@@ -15,52 +15,51 @@ A MeshCore advert and a Meshtastic packet share nothing above the raw radio:
 | **Sync word** | **0x12 (private)** | **0x2B (public)** |
 | Framing | pubkey + timestamp + signature | 16-byte header + AES-CTR protobuf |
 
-The **sync word** is different, so the radios do not hear each other, even on the
-same frequency. And Meshtastic removes any packet that does not have its own
-framing. Thus, to be seen, the node must *become* a Meshtastic transmitter for one
+Even on the same frequency the differing **sync word** means the radios never
+hear each other; and even if they did, Meshtastic drops anything that isn't its
+own framing. So to be seen we must *become* a Meshtastic transmitter for one
 packet.
 
 ## What this prototype does
 
-`MeshtasticBeacon.h` is self-contained and works with any chip:
+`MeshtasticBeacon.h` is self-contained and chip-agnostic:
 
-1. `buildTextPacket()` — it assembles a Meshtastic broadcast text packet: the
-   16-byte header, then an AES-CTR-encrypted `Data{portnum=TEXT_MESSAGE_APP,
-   payload="..."}` protobuf, with the channel PSK as the key. It uses the rweather
-   `Crypto` library (`CTR<AES128>`) that MeshCore already includes.
-2. `channelHash()` — the Meshtastic XOR channel hash (the default channel is
-   `0x08`).
-3. `transmitOnce()` — it changes the radio to the Meshtastic modem preset and sync
-   word with the MeshCore `RadioLibWrapper`, transmits, then changes the radio back
-   to the MeshCore PHY. Thus the repeater continues normally.
+1. `buildTextPacket()` — assembles a Meshtastic broadcast text packet: the
+   16-byte header, then an AES-CTR–encrypted `Data{portnum=TEXT_MESSAGE_APP,
+   payload="..."}` protobuf, keyed by the channel PSK. Uses the rweather
+   `Crypto` lib (`CTR<AES128>`) already vendored by MeshCore.
+2. `channelHash()` — Meshtastic's XOR channel hash (default channel == `0x08`).
+3. `transmitOnce()` — retunes the radio to the Meshtastic modem preset + sync
+   word via MeshCore's `RadioLibWrapper`, transmits, then restores the MeshCore
+   PHY so the repeater resumes normally.
 
-`main.cpp` is a small demo: it starts the board and the radio, then beacons each
-5 minutes.
+`main.cpp` is a minimal demo: boot the board/radio, then beacon every 5 minutes.
 
 ## The single-radio constraint
 
-LoRa uses one channel at a time. While `transmitOnce()` operates (a few hundred ms
-at SF11), the radio is **off the MeshCore channel**, and the node does not receive
-MeshCore traffic in that time. This is the main trade-off — keep the interval long
+LoRa is one channel at a time. While `transmitOnce()` runs (a few hundred ms at
+SF11), the radio is **off the MeshCore channel** and any MeshCore traffic in
+that window is missed. This is the core trade-off — keep the interval long
 (minutes). For a real repeater, call `sendBeacon()` from the idle path of
-`simple_repeater`; do not use this small loop.
+`simple_repeater` rather than running this stripped-down loop.
 
 ## Status
 
-**Verified on-air.** The text packet is confirmed against a live Meshtastic node —
-it decodes and shows on the default channel. The interop-critical math (the channel
-hash `0x08`, the region/preset frequency calculation, the AES-CTR nonce, and the
-NodeInfo/Position protobuf encoders) is pinned by host unit tests in `test/` (run
-`test/run.sh`). The multi-block AES-CTR counter is confirmed too: the default text
-is more than 16 bytes and decodes correctly.
+**Verified on-air.** The text packet has been confirmed against a live Meshtastic
+node — it decodes and displays on the default channel. The interop-critical math
+(channel-hash `0x08`, the region/preset frequency calculation, the AES-CTR nonce,
+and the NodeInfo/Position protobuf encoders) is pinned by host unit tests in
+`test/` (run `test/run.sh`). The multi-block AES-CTR counter is implicitly
+confirmed: the default text is >16 bytes and decodes correctly.
 
-Confirm these on your own bench: that the **NodeInfo/Position** packets show as a
-named pin on the Meshtastic map (the bytes are correct, but no person has looked at
-the map display), and that you set the correct `region` and `preset` for your area.
+Still worth confirming on your own bench: that the **NodeInfo/Position** packets
+render as a named pin on the Meshtastic map (the bytes are validated, but map
+display hasn't been eyeballed) — and, obviously, that you've set the right
+`region`/`preset` for where you are.
 
 ## Building it
 
-The beacon envs are in the variant `platformio.ini` files. Verified builds:
+Beacon envs are defined in the variant `platformio.ini` files. Verified builds:
 
 ```
 pio run -e t1000e_meshtastic_beacon         # Seeed T1000-E  (LR1110)
@@ -68,7 +67,7 @@ pio run -e Heltec_t114_meshtastic_beacon    # Heltec T114    (SX1262)
 pio run -e Xiao_nrf52_meshtastic_beacon     # Seeed XIAO nRF52840 (SX1262)
 ```
 
-Each env is the same shape — extend the base block of the board and add this folder
+Each env is the same shape — extend the board's base block and add this folder
 to the source filter:
 
 ```ini
@@ -80,220 +79,208 @@ build_src_filter = ${<board base>.build_src_filter}
   +<../examples/meshtastic_beacon>
 ```
 
-The radio helpers are templated on the concrete radio. Thus the same code operates
-with `CustomLR1110` (T1000-E) or `CustomSX1262` (T114 / XIAO) with no change. On the
-repeater build, the region, preset, and frequency are runtime `mtbeacon` settings —
-no per-board source changes are necessary (only `MESHCORE_SYNC_WORD`, if the
-MeshCore sync word of a board is not the default `0x12`).
+The radio helpers are templated on the concrete radio, so the same code binds to
+`CustomLR1110` (T1000-E) or `CustomSX1262` (T114 / XIAO) unchanged. On the
+repeater build, region/preset/frequency are runtime `mtbeacon` settings — no
+per-board source edits needed (only `MESHCORE_SYNC_WORD` if a board's MeshCore
+sync word differs from the default `0x12`).
 
 ## Runtime control via the MeshCore CLI (repeater integration)
 
 `MtBeaconControl.h` adds a persisted, CLI-configurable beacon to a real repeater
-(not the demo). It goes into `simple_repeater` with `-D WITH_MT_BEACON`. Thus
-standard repeater builds do not change (the guards compile to nothing). Build the
-integrated firmware with:
+(not the standalone demo). It's integrated into `simple_repeater` behind
+`-D WITH_MT_BEACON`, so stock repeater builds are unaffected (the guards compile
+to nothing). Build the integrated firmware with:
 
 ```
 pio run -e Heltec_t114_without_display_repeater_mtbeacon
 ```
 
-Then, over the serial port or an admin remote-CLI session, use the `mtbeacon`
-commands:
+Then, over serial or via an admin remote-CLI session, use the `mtbeacon` verbs:
 
-| Command | Function |
+| Command | Effect |
 | --- | --- |
-| `mtbeacon` / `mtbeacon status` | Show the configuration and the derived node id. |
-| `mtbeacon stats` / `mtbeacon stats clear` | Show the transmit health from boot / Set the counters to zero. |
-| `mtbeacon help` | Show all commands (the detailed list prints to serial). |
-| `mtbeacon on` / `mtbeacon off` | Set the periodic beacon to on / off. |
-| `mtbeacon send` | Transmit one beacon now, with the text (it operates even when off). |
-| `mtbeacon interval <min>` | The presence interval (1–1440 min; default 30). |
-| `mtbeacon preset <name>` | The modem preset: LongFast, LongMod, LongSlow, MediumFast, MediumSlow, ShortFast, ShortSlow, ShortTurbo. |
-| `mtbeacon region <name>` | The region and band: US, EU_868, EU_433, ANZ, CN, JP, KR, TW, RU, IN, NZ_865, TH, UA_433, UA_868 (alias `country`). |
-| `mtbeacon freq <MHz\|auto>` | Set the frequency manually. `auto` calculates it again from the region and preset. |
-| `mtbeacon power <dBm>` | The TX power (−9 to 22). The region limit applies. |
-| `mtbeacon hops <0-3>` | The Meshtastic hop limit for the presence and text (**default 0**). |
-| `mtbeacon text <string>` | The text (63 characters maximum). |
-| `mtbeacon text.mult <N>` | The text schedule. The text goes with each flood advert, and N−1 more times each period (0 = never). |
-| `mtbeacon short <str\|auto>` | The Meshtastic short name / map label (4 characters maximum). `auto` = `MC` and 2 hex characters. |
-| `mtbeacon nodeinfo on/off` | Also send a NodeInfo (the node name). Default on. |
-| `mtbeacon position on/off` | Also send a Position (the map point). Default on. |
-| `mtbeacon telemetry on/off` | Also send Telemetry (battery and run time). Default on. |
-| `mtbeacon presets` / `mtbeacon regions` | Show the available preset / region names. |
+| `mtbeacon` / `mtbeacon status` | show current config + derived node id |
+| `mtbeacon stats` / `mtbeacon stats clear` | transmit health since boot / reset the counters |
+| `mtbeacon help` | list all commands (detailed list prints to serial) |
+| `mtbeacon on` / `mtbeacon off` | enable / disable periodic beaconing |
+| `mtbeacon send` | transmit one beacon now, text included (works even when off) |
+| `mtbeacon interval <min>` | presence period (1–1440 min, default 30) |
+| `mtbeacon preset <name>` | modem preset: LongFast, LongMod, LongSlow, MediumFast, MediumSlow, ShortFast, ShortSlow, ShortTurbo |
+| `mtbeacon region <name>` | region/country band: US, EU_868, EU_433, ANZ, CN, JP, KR, TW, RU, IN, NZ_865, TH, UA_433, UA_868 (alias `country`) |
+| `mtbeacon slot <N\|auto>` | Meshtastic frequency slot (1-based, as the app shows it); `auto` = the channel-name-hash default. For meshes running a non-default slot. |
+| `mtbeacon freq <MHz\|auto>` | manual frequency override (wins over `slot`); `auto` re-derives from region+preset(+slot) |
+| `mtbeacon power <dBm>` | set TX power (−9…22), auto-capped to the region limit |
+| `mtbeacon hops <0-3>` | Meshtastic hop limit for presence + text (**default 0**) |
+| `mtbeacon text <string>` | set the announced text (≤63 chars) |
+| `mtbeacon text.mult <N>` | text pacing: rides each flood advert, plus N−1 timer-paced extras per period (0 = never) |
+| `mtbeacon short <str\|auto>` | Meshtastic short name / map label (≤4 chars); `auto` = `MC` + 2 hex |
+| `mtbeacon nodeinfo on/off` | also emit a NodeInfo (named node) — default on |
+| `mtbeacon position on/off` | also emit a Position (map pin) — default on |
+| `mtbeacon telemetry on/off` | also emit Telemetry (battery + uptime) — default on |
+| `mtbeacon presets` / `mtbeacon regions` | list available preset / region names |
 
-**Channel block list (v0.2.7).** This is separate from the beacon. You can tell the
-repeater not to forward specific `#hashtag` channels — by name, no key necessary:
+**Shows up as a node on the Meshtastic map.** The periodic beacon is a silent
+*presence*: a **NodeInfo** (so the repeater appears as a named node — long name
+`MC <repeater name>`, short name `MC` + 2 hex of the node id, e.g. `MC7a`), a
+**Position** (a map pin, using the repeater's configured lat/lon; skipped if
+unset), and a **Telemetry** packet (battery + uptime). At slow presets these
+go out one per cycle, round-robin, to bound the off-channel window; only the
+enabled ones take part, so switching one off speeds up the rest of the cycle.
+Toggle them with `nodeinfo` / `position` / `telemetry`.
 
-| Command | Function |
-| --- | --- |
-| `block` / `block list` | Show the blocked channels and their hash byte. |
-| `block #dispatches` | Stop the repeat of that `#hashtag` channel (up to 8). |
-| `unblock #dispatches` | Start the repeat of it again. |
+**Battery and uptime (v0.2.6).** The Telemetry packet carries Meshtastic
+`DeviceMetrics`, which is what phone clients render as the node's battery ring
+and uptime — so a solar or battery repeater shows its state of charge on someone
+else's app without any extra hardware. The percentage is mapped from the board's
+raw millivolt reading across the usual 1S Li-ion range (3.3 V empty → 4.2 V
+full); boards with no battery sense report nothing at all rather than a
+confident 0%. `channel_utilization` and `air_util_tx` are deliberately **left
+empty**: our airtime figures describe the MeshCore channel this node actually
+repeats on, not the Meshtastic one, and publishing them would put a confidently
+wrong load number on someone else's network map.
 
-MeshCore `#hashtag` channels calculate their key from the name
-(`SHA-256("#name")[:16]`). Thus the firmware calculates the on-air channel hash.
-Two limits come from the wire format. First, it operates for `#`-name channels only
-(the firmware cannot calculate the key of a private channel with a random key).
-Second, the channel id on the air is one byte, so a block sometimes also stops a
-different channel with the same byte (near 1 in 256; the hash in the list makes a
-collision easy to see). Adverts, DMs, and ACKs do not change.
+The **short name is the label Meshtastic draws on the map marker**, which is why
+it isn't a flat `MC` — that would make every beacon an indistinguishable pin.
+The 2 hex digits give 256-way local uniqueness while still reading as MeshCore
+at a glance; the long name disambiguates on tap. Operators with a callsign or
+site code can pin their own with `mtbeacon short <str>` (≤4 chars), or return to
+the derived one with `mtbeacon short auto`.
 
-**It shows as a node on the Meshtastic map.** The periodic beacon is a silent
-*presence*: a **NodeInfo** (so the repeater shows as a named node — the long name
-`MC <repeater name>`, the short name `MC` and 2 hex characters of the node id, for
-example `MC7a`), a **Position** (a map point, from the repeater configured lat/lon;
-the node does not send it if unset), and a **Telemetry** packet (battery and run
-time). At slow presets, these go out one per cycle, in turn, to limit the
-off-channel time. Only the enabled ones take part, so when you turn one off, the
-rest of the cycle is faster. Turn them on or off with `nodeinfo` / `position` /
-`telemetry`.
+**Chat text.** The `text` message is deliberately rarer than the presence, and
+it's **event-driven**: whenever the repeater floods a MeshCore advert — the
+periodic flood advert or an explicit CLI `advert` — the text rides a beacon
+burst a few seconds later. So the chat announcement tracks the repeater's real
+advert cadence (default 47 h), and running `advert` doubles as a live test.
+`text.mult > 1` adds timer-paced extra texts between adverts (N per advert
+period); `text.mult 0` disables the text, leaving a silent presence-only
+beacon. `mtbeacon status` shows the pacing live, e.g. `txt1x~47h(due 13h)` —
+or `(due now)` when a text is armed and waiting for the next burst;
+`txt1x(noadv)` means the repeater's flood advert is off, which disables the
+timer pacing (an explicit `advert` still carries the text).
 
-**Battery and run time (v0.2.6).** The Telemetry packet includes Meshtastic
-`DeviceMetrics`. Phone clients show this as the node battery ring and run time.
-Thus a solar or battery repeater shows its charge on another person's app, with no
-extra hardware. The percentage comes from the raw millivolt reading of the board
-across the usual 1S Li-ion range (3.3 V empty → 4.2 V full). A board with no battery
-sense reports nothing, not a wrong 0%. `channel_utilization` and `air_util_tx` are
-**empty** on purpose: the airtime figures are for the MeshCore channel that this
-node repeats on, not the Meshtastic one. To publish them would put a wrong load
-number on another person's network map.
+**Region + preset auto-tune the frequency.** Setting `region` or `preset`
+computes the exact Meshtastic default-channel frequency the same way Meshtastic
+firmware does (the preset bandwidth sets how many channel slots fit in the region
+band; the channel name hashes to a slot — e.g. US LongFast → 906.875, EU_868
+LongFast → 869.525). `mtbeacon freq` is only for a manual override; a `*` in
+`status` indicates an override is active.
 
-The **short name is the label that Meshtastic draws on the map marker**. This is why
-it is not a flat `MC` — that would make every beacon the same pin. The 2 hex
-characters give 256-way local difference, and it still shows as MeshCore. The long
-name gives more detail on tap. An operator with a callsign or a site code can set
-their own with `mtbeacon short <str>` (4 characters maximum), or go back to the
-derived one with `mtbeacon short auto`.
+**Region power cap.** Each region carries a legal TX-power ceiling (e.g. EU_433
+12 dBm, JP 16 dBm); the configured power is clamped to it, shown as `(cap)` in
+`status`.
 
-**Chat text.** The `text` message is less frequent than the presence, and it is
-**event-driven**. When the repeater sends a MeshCore advert — the periodic flood
-advert or a CLI `advert` — the text goes out on a beacon burst a few seconds later.
-Thus the chat message follows the real advert schedule of the repeater (default
-47 h), and the `advert` command is also a good test. `text.mult > 1` adds more texts
-between adverts (N per advert period). `text.mult 0` stops the text and leaves a
-silent presence-only beacon. `mtbeacon status` shows the schedule, for example
-`txt1x~47h(due 13h)`, or `(due now)` when a text is ready for the next burst.
-`txt1x(noadv)` means the flood advert of the repeater is off, which stops the timer
-schedule (a manual `advert` still sends the text).
+**Hop limit.** The beacon's Meshtastic packets go out at **0 hops by default**, so
+they're heard only by direct neighbors and are **never rebroadcast** across the
+Meshtastic network — a deliberately light-footprint default for a foreign beacon.
+Raise it with `mtbeacon hops <0-3>` (capped at 3) if you want limited relaying.
+Shown as `h<N>` in `status`.
 
-**The region and preset set the frequency.** When you set `region` or `preset`, the
-firmware calculates the exact Meshtastic default-channel frequency, the same way
-Meshtastic firmware does (the preset bandwidth sets how many channel slots fit in
-the region band; the channel name hashes to a slot — for example US LongFast →
-906.875, EU_868 LongFast → 869.525). `mtbeacon freq` is for a manual value only; a
-`*` in `status` shows that a manual value is active.
+Settings persist to `/mtbeacon` in the internal filesystem (separate from
+`NodePrefs` — core prefs are untouched). Defaults are US LongFast, 30-min
+presence, text once per flood advert, disabled until you `mtbeacon on`. The
+node number is derived from the repeater's identity, so it's stable across
+reboots.
 
-**Region power limit.** Each region has a legal TX-power limit (for example EU_433
-12 dBm, JP 16 dBm). The firmware limits the configured power to it, and shows
-`(cap)` in `status`.
-
-**Hop limit.** The Meshtastic packets of the beacon go out at **0 hops by default**.
-Thus direct neighbours receive them, and other nodes do **not** repeat them across
-the Meshtastic network — a small footprint by default for a foreign beacon. Increase
-it with `mtbeacon hops <0-3>` (3 maximum) if you want some relay. `status` shows it
-as `h<N>`.
-
-The settings are kept in `/mtbeacon` in the internal filesystem (separate from
-`NodePrefs`; the core prefs do not change). The defaults are US LongFast, 30-minute
-presence, text one time per flood advert, and off until you run `mtbeacon on`. The
-node number comes from the repeater identity, so it is stable across restarts.
-
-The beacon transmits only when the mesh is idle (`!hasPendingWork() && !receiving`
-and not mid-transmit); if not, it waits a few seconds. Thus it never changes the
-radio in the middle of a transaction. After the beacon, it restores the *current*
-radio parameters of the repeater (including any active `tempradio` value) and enters
-receive again immediately, so power-saving nodes do not sleep deaf. To add it to
-another board, copy the `*_repeater_mtbeacon` env shape: extend the repeater env of
-that board and add `-D WITH_MT_BEACON -I examples/meshtastic_beacon`.
+The beacon only fires when the mesh is idle (`!hasPendingWork() && !receiving`
+&& not mid-transmit), deferring a few seconds otherwise, so it never retunes
+mid-transaction. It restores the repeater's *current* radio params afterward
+(including any active `tempradio` override) and re-arms receive immediately, so
+power-saving nodes don't sleep deaf. To add it to another board, copy the
+`*_repeater_mtbeacon` env shape: extend that board's repeater env and add
+`-D WITH_MT_BEACON -I examples/meshtastic_beacon`.
 
 ## Reliability
 
-Each burst changes the radio to the Meshtastic PHY and back. The radio normally
-signals the end of a transmit with the **TxDone interrupt** — but that edge can be
-lost during a radio change, even when the packet went out correctly. The firmware
-does not wait on a fixed multi-second timeout (which stops the whole main loop while
-the node looks dead). Instead, the **estimated airtime** of the packet limits the
-send: after that time, a transmit that started has finished. Normal sends do not
-change — the interrupt arrives first and the wait ends immediately.
+Each burst retunes the radio to the Meshtastic PHY and back. Completion of a
+transmit is normally signalled by the radio's **TxDone interrupt** — but that
+edge can occasionally be lost across a retune, even though the packet went out
+perfectly well. Rather than sit on a fixed multi-second timeout (which freezes
+the whole main loop while the node looks dead), the send is bounded by the
+packet's **estimated airtime**: once that has elapsed, a transmit that started
+has physically finished. Normal sends are unaffected — the interrupt arrives
+first and the wait ends immediately.
 
-When the interrupt does *not* arrive, the beacon **asks the radio chip directly** if
-it transmitted (v0.2.5). The MeshCore `isSendComplete()` reads only a flag that an
-ISR sets. Thus, from there, "sent, interrupt lost" and "never transmitted" are the
-same — v0.2.4 assumed the first, so it could report a real failure as a success.
-RadioLib maps the TxDone bit of each family onto one generic flag, so one register
-read gives the answer on SX126x, SX127x, LR11x0, and STM32WLx. The read is *before*
-`finishTransmit()`, which clears the flags.
+When the interrupt *doesn't* arrive, the beacon **asks the radio chip directly**
+whether it transmitted (v0.2.5). MeshCore's `isSendComplete()` only reads a flag
+an ISR sets, so from there "sent, interrupt lost" and "never transmitted" are
+indistinguishable — v0.2.4 assumed the former and so could report a genuine
+failure as a success. RadioLib maps every family's TxDone bit onto one generic
+flag, so a single register read settles it on SX126x, SX127x, LR11x0 and
+STM32WLx alike. The read happens *before* `finishTransmit()`, which clears the
+flags.
 
-The firmware reports the two conditions separately now, so a bad ISR and a real
-transmit failure do not look the same:
+The two conditions are now reported separately, so a misbehaving ISR and a real
+transmit failure no longer look the same:
 
 ```
 beacon: TxDone IRQ missed on 1/2 packet(s) - checked the chip instead
 beacon: 1/2 packet(s) did NOT transmit (chip reports no TxDone)
 ```
 
-A burst reports a failure only when nothing left the antenna. The caller then sends
-it again, and does not record a delivery that did not happen.
+A burst reports failure only when nothing left the antenna — the caller then
+retries it rather than recording a delivery that never happened.
 
 ### Self-repair and `mtbeacon stats` (v0.2.6)
 
-To know that a transmit is dead is useful only if the firmware acts on it. After
-**3 dead transmits together** (`MT_BEACON_FAIL_STREAK`, change it with `-D`), the
-beacon **starts the radio again**, not only restores it: standby, clear any latched
-IRQ flags, arm the driver again — this registers the TxDone interrupt action again,
-the item most likely lost during a radio change — then program the MeshCore PHY
-again and enter receive. Before this, a stopped modem stayed stopped until a person
-power-cycled the node.
+Knowing a transmit is genuinely dead is only useful if something acts on it.
+After **3 dead transmits in a row** (`MT_BEACON_FAIL_STREAK`, overridable by
+`-D`) the beacon **re-initialises the radio** instead of merely restoring it:
+standby, clear any latched IRQ flags, re-arm the driver — which re-registers the
+TxDone interrupt action, the thing most likely to have been lost across a retune
+— then reprogram the MeshCore PHY and re-enter receive. Before this, a wedged
+modem stayed wedged until somebody power-cycled the node.
 
-It does not do a full chip reset. That needs per-family `begin()` parameters that
-the wrapper does not expose, and a half-reset radio is worse than the stopped state.
-A recovery restarts the noise-floor calibration, so the node learns the interference
-threshold again over the next few seconds.
+It deliberately stops short of a chip reset: that needs per-family `begin()`
+parameters the wrapper doesn't expose, and a half-reset radio is worse than the
+wedge being cleared. A recovery restarts noise-floor calibration, so the
+interference threshold is re-learned over the next few seconds.
 
 ```
 beacon: 3 dead transmits in a row - reinitialising the radio
 ```
 
-You can read the counters at any time. Thus a drive test or a site visit gives data,
-not serial scrollback:
+The counters behind all of this are readable at any time, which turns a drive
+test or a site visit into data instead of serial scrollback:
 
 ```
 mtbeacon stats
 > beacon tx 61/64 ok | dead 3 irq-miss 7 nostart 0 | burst 22 lbt 1 | recov 1 (last fail 12m ago)
 ```
 
-Read `dead` and `irq-miss` as **nested, not separate**: `irq-miss` counts each
-transmit with no TxDone interrupt, and `dead` is the part that the chip then
-confirmed did not go out. A high `irq-miss` with `dead 0` is the good case — the
-interrupt path is unreliable, but the packets transmit. This is exactly the case
-that v0.2.4 could not tell from a failure. `lbt` counts bursts that the node did not
-send because listen-before-talk found the channel busy. `recov` counts the radio
-re-inits. The counters are in RAM only — they are diagnostics, not worth a flash
-write per packet, and a restart is the correct time to reset them. `mtbeacon stats
-clear` sets them to zero without a restart.
+Read `dead` and `irq-miss` as **nested, not disjoint**: `irq-miss` counts every
+transmit where the TxDone interrupt never arrived, and `dead` is the subset the
+chip then confirmed had not gone out. A high `irq-miss` with `dead 0` is the
+healthy case — the interrupt path is flaky but the packets are flying, which is
+exactly the situation v0.2.4 could not distinguish from failure. `lbt` counts
+bursts skipped because listen-before-talk found the channel busy; `recov` counts
+radio re-inits. The counters live in RAM only — they are diagnostics, not worth
+a flash write per packet, and a reboot is exactly when you want them to reset.
+`mtbeacon stats clear` zeroes them without rebooting.
 
 ### nRF52 boards
 
-nRF52 builds (RAK4631, ProMicro/Faketec, T114, T1000-E, XIAO nRF52, and others)
-start the **hardware watchdog** (90 s, fed each loop pass). If the node hangs, it
-restarts itself; it does not stay dead until a person power-cycles it. DFU updates
-are not affected (the UF2 bootloader feeds a running watchdog).
+nRF52 builds (RAK4631, ProMicro/Faketec, T114, T1000-E, XIAO nRF52, …) arm the
+**hardware watchdog** (90 s, fed every loop pass): if the node ever hard-hangs,
+it reboots itself instead of sitting dead until someone power-cycles it. DFU
+updates are unaffected (the UF2 bootloader feeds a running watchdog).
 
-Each boot prints its **reset reason** to serial, and you can query it remotely on
-any nRF52 board:
+Every boot prints its **reset reason** to serial, and it's remotely queryable
+on any nRF52 board:
 
 ```
 get pwrmgt.bootreason
 > Reset: Watchdog
 ```
 
-`Watchdog` there means the node hung and recovered itself — send a bug report.
+`Watchdog` there means the node hung and rescued itself — worth a bug report.
 
 ## Scope / etiquette
 
-- **One way only.** The node shows as a named node and a map point, and it sends
-  text. It does not route or repeat Meshtastic traffic.
-- **Shared spectrum.** You add airtime to another person's public channel. The
-  beacons use listen-before-talk, interval jitter, and an EU duty-cycle hold. But
-  keep the interval long, obey the limits of your region, and do not beacon onto
-  channels that you do not operate. Private channels need the operator PSK.
+- **One-way only.** It appears as a named node + map pin and posts text, but it
+  does not route Meshtastic traffic or rebroadcast.
+- **Shared spectrum.** You're adding airtime to someone else's public channel.
+  Beacons use listen-before-talk, interval jitter, and EU duty-cycle hold, but
+  keep the interval long, respect your region's limits, and don't
+  beacon onto channels you don't operate. Private channels need the operator's
+  PSK.
