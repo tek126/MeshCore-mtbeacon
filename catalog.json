@@ -1,5 +1,5 @@
 {
-  "description": "MeshCore repeater firmware with a Meshtastic beacon built in \u2014 the repeater periodically announces itself on a Meshtastic network (map pin + optional text), then returns to its MeshCore channel. Meshtastic packets default to 0 hops (direct neighbors only, never rebroadcast). Same MeshCore protocol otherwise; configured over the serial CLI with the mtbeacon commands.",
+  "description": "MeshCore repeater firmware with a Meshtastic beacon built in — the repeater periodically announces itself on a Meshtastic network (map pin + optional text), then returns to its MeshCore channel. Meshtastic packets default to 0 hops (direct neighbors only, never rebroadcast). Same MeshCore protocol otherwise; configured over the serial CLI with the mtbeacon commands.",
   "maker": {
     "mtbeacon": {
       "name": "MeshCore mtbeacon"
@@ -22,6 +22,23 @@
                   "type": "flash",
                   "name": "meshcore-mtbeacon-thinknode-m1.zip",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-thinknode-m1.zip",
+                  "title": "DFU install (.zip)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "role": "companion",
+          "title": "Companion + Meshtastic presence",
+          "version": {
+            "v0.2.9": {
+              "notes": "MeshCore BLE companion that also appears on Meshtastic: node name, battery and an optional position that is deliberately made less accurate (an uncertainty circle, default ~2.9 km; never chat text). Pairs with the MeshCore phone app as a normal companion; the presence is OFF by default and is configured from the app's custom-variables editor (mt.presence, mt.interval, mt.position, mt.precision, mt.region, mt.preset, mt.slot) - no app changes needed. mt.slot selects an explicit Meshtastic frequency slot for meshes that run a non-default slot. Validated on-air: the phone's BLE session rides the periodic retune. Same interop engine and MeshCore v1.17.1 base as repeater v0.2.9.",
+              "files": [
+                {
+                  "type": "flash",
+                  "name": "meshcore-mtpresence-thinknode-m1.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-thinknode-m1.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -172,7 +189,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-generic-e22.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-generic-e22.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -202,7 +219,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-ct62.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-heltec-ct62.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -232,7 +249,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-wireless-paper.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-heltec-wireless-paper.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -333,6 +350,23 @@
               ]
             }
           }
+        },
+        {
+          "role": "companion",
+          "title": "Companion + Meshtastic presence",
+          "version": {
+            "v0.2.9": {
+              "notes": "MeshCore BLE companion that also appears on Meshtastic: node name, battery and an optional position that is deliberately made less accurate (an uncertainty circle, default ~2.9 km; never chat text). Pairs with the MeshCore phone app as a normal companion; the presence is OFF by default and is configured from the app's custom-variables editor (mt.presence, mt.interval, mt.position, mt.precision, mt.region, mt.preset, mt.slot) - no app changes needed. mt.slot selects an explicit Meshtastic frequency slot for meshes that run a non-default slot. Validated on-air: the phone's BLE session rides the periodic retune. Same interop engine and MeshCore v1.17.1 base as repeater v0.2.9.",
+              "files": [
+                {
+                  "type": "flash",
+                  "name": "meshcore-mtpresence-heltec-mesh-solar.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-heltec-mesh-solar.zip",
+                  "title": "DFU install (.zip)"
+                }
+              ]
+            }
+          }
         }
       ]
     },
@@ -376,6 +410,23 @@
             }
           },
           "subTitle": "no display"
+        },
+        {
+          "role": "companion",
+          "title": "Companion + Meshtastic presence",
+          "version": {
+            "v0.2.9": {
+              "notes": "MeshCore BLE companion that also appears on Meshtastic: node name, battery and an optional position that is deliberately made less accurate (an uncertainty circle, default ~2.9 km; never chat text). Pairs with the MeshCore phone app as a normal companion; the presence is OFF by default and is configured from the app's custom-variables editor (mt.presence, mt.interval, mt.position, mt.precision, mt.region, mt.preset, mt.slot) - no app changes needed. mt.slot selects an explicit Meshtastic frequency slot for meshes that run a non-default slot. Validated on-air: the phone's BLE session rides the periodic retune. Same interop engine and MeshCore v1.17.1 base as repeater v0.2.9. Requires the with-display T114 variant.",
+              "files": [
+                {
+                  "type": "flash",
+                  "name": "meshcore-mtpresence-heltec-t114.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-heltec-t114.zip",
+                  "title": "DFU install (.zip)"
+                }
+              ]
+            }
+          }
         }
       ]
     },
@@ -401,7 +452,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-e213.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-heltec-e213.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -431,7 +482,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-e290.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-heltec-e290.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -461,7 +512,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-tracker.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-heltec-tracker.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -491,7 +542,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-tracker-v2.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-heltec-tracker-v2.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -521,7 +572,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-v2.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-heltec-v2.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -551,7 +602,30 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-v3.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-heltec-v3.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "role": "companion",
+          "title": "Companion + Meshtastic presence",
+          "version": {
+            "v0.2.9": {
+              "notes": "MeshCore BLE companion that also appears on Meshtastic: node name, battery and an optional position that is deliberately made less accurate (an uncertainty circle, default ~2.9 km; never chat text). Pairs with the MeshCore phone app as a normal companion; the presence is OFF by default and is configured from the app's custom-variables editor (mt.presence, mt.interval, mt.position, mt.precision, mt.region, mt.preset, mt.slot) - no app changes needed. mt.slot selects an explicit Meshtastic frequency slot for meshes that run a non-default slot. Validated on-air: the phone's BLE session rides the periodic retune. Same interop engine and MeshCore v1.17.1 base as repeater v0.2.9.",
+              "files": [
+                {
+                  "type": "flash-wipe",
+                  "name": "meshcore-mtpresence-heltec-v3-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-heltec-v3-merged.bin",
+                  "title": "Full install (bootloader + firmware)"
+                },
+                {
+                  "type": "flash-update",
+                  "name": "meshcore-mtpresence-heltec-v3.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-heltec-v3.bin",
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -581,7 +655,30 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-heltec-v4.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-heltec-v4.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "role": "companion",
+          "title": "Companion + Meshtastic presence",
+          "version": {
+            "v0.2.9": {
+              "notes": "MeshCore BLE companion that also appears on Meshtastic: node name, battery and an optional position that is deliberately made less accurate (an uncertainty circle, default ~2.9 km; never chat text). Pairs with the MeshCore phone app as a normal companion; the presence is OFF by default and is configured from the app's custom-variables editor (mt.presence, mt.interval, mt.position, mt.precision, mt.region, mt.preset, mt.slot) - no app changes needed. mt.slot selects an explicit Meshtastic frequency slot for meshes that run a non-default slot. Validated on-air: the phone's BLE session rides the periodic retune. Same interop engine and MeshCore v1.17.1 base as repeater v0.2.9. On the Heltec V4 the external RX amplifier (LNA) is switchable via radio.fem.rxgain.",
+              "files": [
+                {
+                  "type": "flash-wipe",
+                  "name": "meshcore-mtpresence-heltec-v4-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-heltec-v4-merged.bin",
+                  "title": "Full install (bootloader + firmware)"
+                },
+                {
+                  "type": "flash-update",
+                  "name": "meshcore-mtpresence-heltec-v4.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-heltec-v4.bin",
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -707,7 +804,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tlora-v2-1.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-lilygo-tlora-v2-1.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -737,7 +834,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-sx1262.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-lilygo-tbeam-sx1262.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -767,7 +864,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-sx1276.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-lilygo-tbeam-sx1276.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -797,7 +894,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-1w.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-lilygo-tbeam-1w.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -827,7 +924,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tbeam-supreme-sx1262.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-lilygo-tbeam-supreme-sx1262.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -857,7 +954,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-tdeck.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-lilygo-tdeck.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -887,7 +984,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-teth-elite.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-lilygo-teth-elite.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -941,7 +1038,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-t3s3.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-lilygo-t3s3.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -971,7 +1068,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-lilygo-t3s3-sx1276.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-lilygo-t3s3-sx1276.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -1001,7 +1098,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-m5stack-unit-c6l.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-m5stack-unit-c6l.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -1031,7 +1128,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-meshadventurer.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-meshadventurer.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -1109,7 +1206,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-nibble-screen-connect.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-nibble-screen-connect.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -1162,6 +1259,23 @@
               ]
             }
           }
+        },
+        {
+          "role": "companion",
+          "title": "Companion + Meshtastic presence",
+          "version": {
+            "v0.2.9": {
+              "notes": "MeshCore BLE companion that also appears on Meshtastic: node name, battery and an optional position that is deliberately made less accurate (an uncertainty circle, default ~2.9 km; never chat text). Pairs with the MeshCore phone app as a normal companion; the presence is OFF by default and is configured from the app's custom-variables editor (mt.presence, mt.interval, mt.position, mt.precision, mt.region, mt.preset, mt.slot) - no app changes needed. mt.slot selects an explicit Meshtastic frequency slot for meshes that run a non-default slot. Validated on-air: the phone's BLE session rides the periodic retune. Same interop engine and MeshCore v1.17.1 base as repeater v0.2.9.",
+              "files": [
+                {
+                  "type": "flash",
+                  "name": "meshcore-mtpresence-rak4631.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-rak4631.zip",
+                  "title": "DFU install (.zip)"
+                }
+              ]
+            }
+          }
         }
       ]
     },
@@ -1187,7 +1301,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-rak3112.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-rak3112.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -1336,6 +1450,23 @@
               ]
             }
           }
+        },
+        {
+          "role": "companion",
+          "title": "Companion + Meshtastic presence",
+          "version": {
+            "v0.2.9": {
+              "notes": "MeshCore BLE companion that also appears on Meshtastic: node name, battery and an optional position that is deliberately made less accurate (an uncertainty circle, default ~2.9 km; never chat text). Pairs with the MeshCore phone app as a normal companion; the presence is OFF by default and is configured from the app's custom-variables editor (mt.presence, mt.interval, mt.position, mt.precision, mt.region, mt.preset, mt.slot) - no app changes needed. mt.slot selects an explicit Meshtastic frequency slot for meshes that run a non-default slot. Validated on-air: the phone's BLE session rides the periodic retune. Same interop engine and MeshCore v1.17.1 base as repeater v0.2.9.",
+              "files": [
+                {
+                  "type": "flash",
+                  "name": "meshcore-mtpresence-sensecap-solar.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-sensecap-solar.zip",
+                  "title": "DFU install (.zip)"
+                }
+              ]
+            }
+          }
         }
       ]
     },
@@ -1355,6 +1486,23 @@
                   "type": "flash",
                   "name": "meshcore-mtbeacon-t1000-e.zip",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-t1000-e.zip",
+                  "title": "DFU install (.zip)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "role": "companion",
+          "title": "Companion + Meshtastic presence",
+          "version": {
+            "v0.2.9": {
+              "notes": "MeshCore BLE companion that also appears on Meshtastic: node name, battery and an optional position that is deliberately made less accurate (an uncertainty circle, default ~2.9 km; never chat text). Pairs with the MeshCore phone app as a normal companion; the presence is OFF by default and is configured from the app's custom-variables editor (mt.presence, mt.interval, mt.position, mt.precision, mt.region, mt.preset, mt.slot) - no app changes needed. mt.slot selects an explicit Meshtastic frequency slot for meshes that run a non-default slot. Validated on-air: the phone's BLE session rides the periodic retune. Same interop engine and MeshCore v1.17.1 base as repeater v0.2.9.",
+              "files": [
+                {
+                  "type": "flash",
+                  "name": "meshcore-mtpresence-t1000-e.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-t1000-e.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1409,7 +1557,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-xiao-c3.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-xiao-c3.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -1439,7 +1587,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-xiao-s3-wio.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-xiao-s3-wio.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -1463,6 +1611,23 @@
                   "type": "flash",
                   "name": "meshcore-mtbeacon-xiao-nrf52.zip",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-xiao-nrf52.zip",
+                  "title": "DFU install (.zip)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "role": "companion",
+          "title": "Companion + Meshtastic presence",
+          "version": {
+            "v0.2.9": {
+              "notes": "MeshCore BLE companion that also appears on Meshtastic: node name, battery and an optional position that is deliberately made less accurate (an uncertainty circle, default ~2.9 km; never chat text). Pairs with the MeshCore phone app as a normal companion; the presence is OFF by default and is configured from the app's custom-variables editor (mt.presence, mt.interval, mt.position, mt.precision, mt.region, mt.preset, mt.slot) - no app changes needed. mt.slot selects an explicit Meshtastic frequency slot for meshes that run a non-default slot. Validated on-air: the phone's BLE session rides the periodic retune. Same interop engine and MeshCore v1.17.1 base as repeater v0.2.9.",
+              "files": [
+                {
+                  "type": "flash",
+                  "name": "meshcore-mtpresence-xiao-nrf52.zip",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-xiao-nrf52.zip",
                   "title": "DFU install (.zip)"
                 }
               ]
@@ -1517,7 +1682,30 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-xiao-s3.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-xiao-s3.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "role": "companion",
+          "title": "Companion + Meshtastic presence",
+          "version": {
+            "v0.2.9": {
+              "notes": "MeshCore BLE companion that also appears on Meshtastic: node name, battery and an optional position that is deliberately made less accurate (an uncertainty circle, default ~2.9 km; never chat text). Pairs with the MeshCore phone app as a normal companion; the presence is OFF by default and is configured from the app's custom-variables editor (mt.presence, mt.interval, mt.position, mt.precision, mt.region, mt.preset, mt.slot) - no app changes needed. mt.slot selects an explicit Meshtastic frequency slot for meshes that run a non-default slot. Validated on-air: the phone's BLE session rides the periodic retune. Same interop engine and MeshCore v1.17.1 base as repeater v0.2.9.",
+              "files": [
+                {
+                  "type": "flash-wipe",
+                  "name": "meshcore-mtpresence-xiao-s3-merged.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-xiao-s3-merged.bin",
+                  "title": "Full install (bootloader + firmware)"
+                },
+                {
+                  "type": "flash-update",
+                  "name": "meshcore-mtpresence-xiao-s3.bin",
+                  "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/companion-v0.2.9/meshcore-mtpresence-xiao-s3.bin",
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -1595,7 +1783,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-station-g2.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-station-g2.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
@@ -1625,7 +1813,7 @@
                   "type": "flash-update",
                   "name": "meshcore-mtbeacon-station-g3-esp32.bin",
                   "url": "https://cdn.jsdelivr.net/gh/tek126/MeshCore-mtbeacon@meshamerica/firmware/v0.2.9/meshcore-mtbeacon-station-g3-esp32.bin",
-                  "title": "Update (app only \u2014 device already runs MeshCore)"
+                  "title": "Update (app only — device already runs MeshCore)"
                 }
               ]
             }
